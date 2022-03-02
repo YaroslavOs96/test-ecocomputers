@@ -16,17 +16,24 @@ export default class EpisodesList extends Component {
             const episodes = episodeData.map((episode) => {
                 const { name, id, created, episodeInSeasonNumber } = episode
                 return (
-                    < Link
-                        to={`/episode/${id}`}
-                        key={`episode${id}`}
-                    >
-                        {`Серия №${episodeInSeasonNumber}  ${name}`}
-                        {` Выпущена ${created}`}
-                    </Link >
+                    <li
+                        className='episode-container episode-border'
+                        key={id}>
+                        < Link
+                            className='episode-description'
+                            to={`/episode/${id}`}
+                            key={`episode${id}`}
+                        >
+                            {`Серия №${episodeInSeasonNumber}  ${name}`}
+                            {` Выпущена ${created}`}
+
+                        </Link >
+                    </li>
                 )
             });
             return (
                 <ul
+                    className="episodes-list-container episode-border"
                     key={`season${seasonNumber}`}
                 >
                     {`Сезон ${seasonNumber + 1}`}
@@ -57,9 +64,9 @@ export default class EpisodesList extends Component {
 
         return (
             <>
-                <ul className="item-list list-group">
+                <div>
                     {items}
-                </ul>
+                </div>
 
             </>
         );

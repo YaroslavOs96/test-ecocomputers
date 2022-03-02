@@ -9,7 +9,7 @@ export default function App() {
 
 
     return (
-        <>
+        <div className="app">
             <header>
                 RaM
             </header>
@@ -18,7 +18,7 @@ export default function App() {
                 <Route path="/episode" element={<Episode />} />
                 <Route path="/episode/:id" element={<Episode />} />
             </Routes>
-        </>
+        </div>
     )
 
 }
