@@ -10,9 +10,6 @@ export default function App() {
 
     return (
         <div className="app">
-            <header>
-                RaM
-            </header>
             <Routes>
                 <Route path="/" element={<Homepage />} />
                 <Route path="/episode" element={<Episode />} />

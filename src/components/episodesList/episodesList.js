@@ -11,26 +11,57 @@ export default class EpisodesList extends Component {
 
     rickAndMortyData = new RickAndMortyData();
 
+    searchEpisodes(partName) {
+
+        const
+            episodeName = partName.toLowerCase(),
+            { episodesList } = this.state,
+            foundedEpisodes = [];
+
+        episodesList.forEach(function (season) {
+            season.forEach(episode => {
+                if (episode.name.toLowerCase().indexOf(episodeName) >= 0) {
+                    foundedEpisodes.push(episode)
+                }
+            })
+        });
+        return foundedEpisodes
+    }
+
+    visiableEpisodesList(episodeData) {
+        if (!episodeData) {
+            return (
+                <li className='episode-container episode-border'>
+                    {`Эпизоды с таким именем не найдены`}
+                </li>
+            )
+        }
+
+        const visiableEpisodes = episodeData.map((episode) => {
+            const { name, id, created, episodeInSeasonNumber } = episode
+            return (
+                <li
+                    className='episode-container episode-border'
+                    key={id}>
+                    < Link
+                        className='episode-description'
+                        to={`/episode/${id}`}
+                        key={`episode${id}`}
+                    >
+                        {`Серия №${episodeInSeasonNumber}  ${name}`}
+                        {` Выпущена ${created}`}
+
+                    </Link >
+                </li>
+            )
+        });
+        return (visiableEpisodes)
+    };
+
+
     renderEpisodesList(arr) {
         return arr.map((episodeData, seasonNumber) => {
-            const episodes = episodeData.map((episode) => {
-                const { name, id, created, episodeInSeasonNumber } = episode
-                return (
-                    <li
-                        className='episode-container episode-border'
-                        key={id}>
-                        < Link
-                            className='episode-description'
-                            to={`/episode/${id}`}
-                            key={`episode${id}`}
-                        >
-                            {`Серия №${episodeInSeasonNumber}  ${name}`}
-                            {` Выпущена ${created}`}
-
-                        </Link >
-                    </li>
-                )
-            });
+            const episodes = this.visiableEpisodesList(episodeData);
             return (
                 <ul
                     className="episodes-list-container episode-border"
@@ -53,21 +84,22 @@ export default class EpisodesList extends Component {
     }
 
     render() {
-        const { episodesList } = this.state;
+        const { episodesList } = this.state,
+            { searchedEpisode } = this.props;
 
         if (!episodesList) {
             return <Spinner />
         }
 
-        const items = this.renderEpisodesList(episodesList);
-
+        const
+            allEpisodes = this.renderEpisodesList(episodesList),
+            visiableEpisodes = this.visiableEpisodesList(this.searchEpisodes(searchedEpisode));
 
         return (
             <>
                 <div>
-                    {items}
+                    {!searchedEpisode ? allEpisodes : visiableEpisodes}
                 </div>
-
             </>
         );
     }
