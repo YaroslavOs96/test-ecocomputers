@@ -21,8 +21,6 @@ export default function EpisodeDescription({ id, setEpisodeCharacterData }) {
             })
     }, []);
 
-    console.log(episodeData);
-
     return (
         <>
             <div>

@@ -11,9 +11,35 @@ export default class RickAndMortyData {
         return await res.json();
     }
 
+
     getCharacterData = async (id) => {
+        const
+            characterAllData = await this.getResource(`character/${id}`),
+            episodesID = characterAllData.episode.map((link) => {
+                return link.slice(40)
+            }),
+            episodeData = await Promise.all(episodesID.map(async (id) => {
+                return (await this.getEpisodeData(id)).description[0]
+            })),
+            characterData = {
+                description: [this._transFormCharacterDescriptionData(characterAllData)],
+                location: {
+                    name: characterAllData.location.name,
+                    id:characterAllData.location.url.slice(40)
+                },
+                episodes: episodeData
+
+            }
+
+        return characterData
+
+    }
+
+
+
+    getCharacterDescriptionData = async (id) => {
         const res = await this.getResource(`character/${id}`);
-        return this._transFormCharacterData(res)
+        return this._transFormCharacterDescriptionData(res)
     }
 
     getCharactersDataList = async (links) => {
@@ -25,7 +51,7 @@ export default class RickAndMortyData {
         })
 
         const charactersData = await Promise.all(characterID.map(async (id) => {
-            return this.getCharacterData(id)
+            return this.getCharacterDescriptionData(id)
         }));
 
         return charactersData
@@ -79,11 +105,17 @@ export default class RickAndMortyData {
         }
     }
 
-    _transFormCharacterData = (character) => {
+    _transFormCharacterDescriptionData = (character) => {
         return {
             name: character.name,
             id: character.id,
             species: character.species
+        }
+    }
+    _transFormLocationData = (location) => {
+        return {
+            name: location.name,
+            id: location.url.slice(40)
         }
     }
 

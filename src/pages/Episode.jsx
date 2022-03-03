@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import EpisodeDescription from "../components/episodeDescription/episodeDescription";
-import CharacterEpisodesList from "../components/characterEpisodesList/characterEpisodesList"
+import EpisodeCharactersList from "../components/episodeCharactersList/episodeCharactersList";
 
 
 export default function Episode() {
@@ -20,7 +20,7 @@ export default function Episode() {
 
             </div>
             <div >
-                <CharacterEpisodesList listCharacter={listCharacter} />
+                <EpisodeCharactersList listCharacter={listCharacter} />
             </div>
         </>
     )
