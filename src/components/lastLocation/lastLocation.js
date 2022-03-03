@@ -19,8 +19,8 @@ const renderLocation = (location) => {
         </li>
     )
 };
-export default function LastLocation({ location }) {
 
+export default function LastLocation({ location }) {
     return (
         <>
             <ul className="episodes-list-container episode-border">
@@ -29,7 +29,4 @@ export default function LastLocation({ location }) {
             </ul>
         </>
     );
-
-
 }
-// }

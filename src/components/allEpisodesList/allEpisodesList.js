@@ -1,21 +1,25 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import './allEpisodesList.css';
 import Spinner from '../spinner';
 import RickAndMortyData from '../../services/rickAndMortyData';
-import visiableEpisodesList from '../episodesList/episodesList';
+import VisiableEpisodesList from '../episodesList/visiableEpisodesList';
 
-export default class AllEpisodesList extends Component {
-    state = {
-        episodesList: null
-    }
+export default function AllEpisodesList({ searchedEpisode }) {
+    
+    useEffect(() => {
+        rickAndMortyData.getAllEpisodesData()
+            .then((episodesList) => {
+                setEpisodesList(episodesList)
+            })
+    }, []);
 
-    rickAndMortyData = new RickAndMortyData();
+    const [episodesList, setEpisodesList] = useState('');
 
-    searchEpisodes(partName) {
+    const rickAndMortyData = new RickAndMortyData();
 
+    const searchEpisodes = (partName) => {
         const
             episodeName = partName.toLowerCase(),
-            { episodesList } = this.state,
             foundedEpisodes = [];
 
         episodesList.forEach(function (season) {
@@ -28,10 +32,9 @@ export default class AllEpisodesList extends Component {
         return foundedEpisodes
     }
 
-
-    renderEpisodesList(arr) {
+    const renderEpisodesList = (arr) => {
         return arr.map((episodeData, seasonNumber) => {
-            const episodes = visiableEpisodesList(episodeData);
+            const episodes = VisiableEpisodesList(episodeData);
             return (
                 <ul
                     className="episodes-list-container episode-border"
@@ -44,33 +47,15 @@ export default class AllEpisodesList extends Component {
         })
     }
 
-    componentDidMount() {
-        this.rickAndMortyData.getAllEpisodesData()
-            .then((episodesList) => {
-                this.setState({
-                    episodesList
-                })
-            })
+    if (!episodesList) {
+        return <Spinner />
     }
 
-    render() {
-        const { episodesList } = this.state,
-            { searchedEpisode } = this.props;
-
-        if (!episodesList) {
-            return <Spinner />
-        }
-
-        const
-            allEpisodes = this.renderEpisodesList(episodesList),
-            visiableEpisodes = visiableEpisodesList(this.searchEpisodes(searchedEpisode));
-
-        return (
-            <>
-                <div>
-                    {!searchedEpisode ? allEpisodes : visiableEpisodes}
-                </div>
-            </>
-        );
-    }
+    return (
+        <>
+            <div>
+                {!searchedEpisode ? renderEpisodesList(episodesList) : VisiableEpisodesList(searchEpisodes(searchedEpisode))}
+            </div>
+        </>
+    );
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './episodeDescription.css';
 import Spinner from '../spinner';
 import RickAndMortyData from '../../services/rickAndMortyData';
-import visiableEpisodesList from '../episodesList/episodesList';
+import VisiableEpisodesList from '../episodesList/visiableEpisodesList';
 import { useEffect } from 'react';
 
 
@@ -24,7 +24,7 @@ export default function EpisodeDescription({ id, setEpisodeCharacterData }) {
     return (
         <>
             <div>
-                {!episodeData.description ? <Spinner /> : visiableEpisodesList(episodeData.description)}
+                {!episodeData.description ? <Spinner /> : VisiableEpisodesList(episodeData.description)}
             </div>
         </>
     );

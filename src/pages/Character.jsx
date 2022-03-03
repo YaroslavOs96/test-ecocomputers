@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import CharacterDescription from "../components/characterDescription/characterDescription";
 import CharacterEpisodesList from "../components/characterEpisodesList/characterEpisodesList"
 import LastLocation from "../components/lastLocation/lastLocation";
-
+import Layout from "../components/Layout.jsx"
 
 export default function Character() {
 
@@ -15,6 +15,7 @@ export default function Character() {
 
     return (
         <>
+            <Layout />
             <div>
                 <CharacterDescription
                     id={id}

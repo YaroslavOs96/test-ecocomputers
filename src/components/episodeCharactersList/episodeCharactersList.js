@@ -1,34 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './episodeCharactersList.css';
 import Spinner from '../spinner';
 import RickAndMortyData from '../../services/rickAndMortyData';
 import CharactersList from '../charactersList/charactersList';
-import { useEffect } from 'react';
-
-
 
 export default function EpisodeCharactersList({ listCharacter }) {
+
+    console.log(listCharacter);
 
     const [charactersData, setCharactersData] = useState('');
 
     const rickAndMortyData = new RickAndMortyData();
 
-    useEffect(() => {
+    if (listCharacter && charactersData === '') {
         rickAndMortyData.getCharactersDataList(listCharacter)
-            .then((charactersData) => {
-                setCharactersData(charactersData)
+            .then((data) => {
+                setCharactersData(data)
             })
-    });
-
+    }
 
     return (
         <>
-            <ul
-                className="episodes-list-container episode-border"
-            >
-                В эпизоде появлялись:
-                {!charactersData ? <Spinner /> : CharactersList(charactersData)}
-            </ul>
+            {!charactersData ? <Spinner /> : CharactersList(charactersData)}
         </>
     );
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './episodesList.css';
+import './visiableEpisodesList.css';
 import { Link } from "react-router-dom";
 
-export default function visiableEpisodesList(episodeData) {
+export default function VisiableEpisodesList(episodeData) {
     
     if (episodeData.length === 0) {
         return (
