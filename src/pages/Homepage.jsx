@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import EpisodesList from "../components/episodesList/episodesList"
+import AllEpisodesList from "../components/allEpisodesList/allEpisodesList"
 import SearchPanel from "../components/searchPanel/searchPanel";
 
 
@@ -12,10 +12,10 @@ export default class Homepage extends Component {
         };
     }
 
-
     onUpdateSearch = (searchedEpisode) => {
         this.setState({ searchedEpisode })
     };
+    
     render() {
         return (
             <>
@@ -23,7 +23,7 @@ export default class Homepage extends Component {
                     <SearchPanel onUpdateSearch={this.onUpdateSearch} />
                 </div>
                 <div >
-                    <EpisodesList searchedEpisode={this.state.searchedEpisode} />
+                    <AllEpisodesList searchedEpisode={this.state.searchedEpisode} />
                 </div>
             </>
         )
