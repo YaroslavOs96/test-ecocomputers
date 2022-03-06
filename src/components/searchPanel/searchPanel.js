@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import './search-panel.css'
 
 export default function SearchPanel({ onUpdateSearch }) {

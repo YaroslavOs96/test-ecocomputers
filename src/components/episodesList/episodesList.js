@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import './visiableEpisodesList.css';
+import React from 'react';
+import './episodesList.css';
 import { Link } from "react-router-dom";
 
-export default function VisiableEpisodesList(episodeData) {
-    
+export default function EpisodesList(episodeData) {
+
     if (episodeData.length === 0) {
         return (
             <li className='episode-container episode-border'>

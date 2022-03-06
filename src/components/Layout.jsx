@@ -6,7 +6,7 @@ export default function Layout() {
         <>
             <div className='episode-container episode-border'>
                 < Link className='episode-description' to={`/`}>
-                    К Списку эпизодов
+                    К списку всех эпизодов
                 </Link >
             </div>
         </>

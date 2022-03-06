@@ -3,6 +3,7 @@ import './locationDescription.css';
 import Spinner from '../spinner';
 import RickAndMortyData from '../../services/rickAndMortyData';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 
 const renderLocationDescription = (description) => {
@@ -21,15 +22,18 @@ const renderLocationDescription = (description) => {
 
 export default function LocationDescription({ id, setLocationEpisodesData }) {
 
-    const [locationDescription, setDescription] = useState('');
-
-    const rickAndMortyData = new RickAndMortyData();
+    const [locationDescription, setDescription] = useState(''),
+        rickAndMortyData = new RickAndMortyData(),
+        goNotfound = useNavigate();
 
     useEffect(() => {
         rickAndMortyData.getLocationData(id)
             .then((locationData) => {
                 setDescription(locationData.description)
                 setLocationEpisodesData(locationData.allCharacterID)
+            })
+            .catch(() => {
+                goNotfound('/notfound')
             })
     }, []);
 

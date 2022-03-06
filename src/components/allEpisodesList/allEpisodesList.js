@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './allEpisodesList.css';
 import Spinner from '../spinner';
 import RickAndMortyData from '../../services/rickAndMortyData';
-import VisiableEpisodesList from '../episodesList/visiableEpisodesList';
+import EpisodesList from '../episodesList/episodesList';
 
 export default function AllEpisodesList({ searchedEpisode }) {
-    
+
     useEffect(() => {
         rickAndMortyData.getAllEpisodesData()
             .then((episodesList) => {
@@ -32,9 +32,9 @@ export default function AllEpisodesList({ searchedEpisode }) {
         return foundedEpisodes
     }
 
-    const renderEpisodesList = (arr) => {
+    const renderAllEpisodesList = (arr) => {
         return arr.map((episodeData, seasonNumber) => {
-            const episodes = VisiableEpisodesList(episodeData);
+            const episodes = EpisodesList(episodeData);
             return (
                 <ul
                     className="episodes-list-container episode-border"
@@ -54,7 +54,7 @@ export default function AllEpisodesList({ searchedEpisode }) {
     return (
         <>
             <div>
-                {!searchedEpisode ? renderEpisodesList(episodesList) : VisiableEpisodesList(searchEpisodes(searchedEpisode))}
+                {!searchedEpisode ? renderAllEpisodesList(episodesList) : EpisodesList(searchEpisodes(searchedEpisode))}
             </div>
         </>
     );
